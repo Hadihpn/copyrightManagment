@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "I:\\BlockchainProject\\Copyright\\contracts\\BAFC_NFT.sol": {
-      "lastModificationDate": 1696793990058,
-      "contentHash": "6f61adaffcc0d3dfb9196e5e8e9a9ccc",
+      "lastModificationDate": 1696873087795,
+      "contentHash": "175d0e902bea754c94ab2af515915f71",
       "sourceName": "contracts/BAFC_NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -42,7 +42,7 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\NFT.sol": {
-      "lastModificationDate": 1696794583241,
+      "lastModificationDate": 1696879075534,
       "contentHash": "57b465b8dec1ccb53a0bdc342fbde1ed",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
@@ -197,8 +197,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\ERC1155.sol": {
-      "lastModificationDate": 1696686904011,
-      "contentHash": "917e6b867a0e67cd81ca4eb34336ca35",
+      "lastModificationDate": 1696884907884,
+      "contentHash": "fab4eb25bf9ffa562d44937351782837",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -688,8 +688,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\Market.sol": {
-      "lastModificationDate": 1696794786747,
-      "contentHash": "417e96be19e89d8deffc8ed01beb6c54",
+      "lastModificationDate": 1696882937100,
+      "contentHash": "de4223ddbd92af4805d4104344b7e6b4",
       "sourceName": "contracts/Market.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -766,7 +766,7 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1696687322870,
+      "lastModificationDate": 1696688836889,
       "contentHash": "1ce46e94d6d577190d367cfc7d24806b",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {

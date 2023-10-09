@@ -19,9 +19,9 @@ mapping (bytes32 => bool) private _invalidatedSalesOrders;
 address private _owner;
 uint256 public  totalContribution;
 mapping (address=>uint256) public  usersContributions;
-constructor(uint256 ownerContribution,address marketPlace) MyToken(msg.sender,msg.sender){
-    _owner = msg.sender;
-    usersContributions[msg.sender] = ownerContribution;
+constructor(uint256 ownerContribution,address marketPlace,address creator) MyToken(marketPlace,marketPlace){
+    _owner = marketPlace;
+    usersContributions[creator] = ownerContribution;
     // set marketplace contribution
     // usersContributions[marketplaceAddress] = 10 percent;
 

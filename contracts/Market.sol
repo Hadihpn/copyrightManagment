@@ -17,39 +17,39 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {}
 
     struct Listing1155 {
-        address nft;
+        address nftAddress;
         address seller;
-        uint128 tokenId;
-        uint128 amount;
-        uint128 price;
+        uint256 tokenId;
+        uint256 amount;
+        uint256 price;
     }
     event TokenListed1155(
         address indexed seller,
-        uint128 indexed tokenId,
-        uint128 amount,
-        uint128 pricePerToken,
+        uint256 indexed tokenId,
+        uint256 amount,
+        uint256 pricePerToken,
         uint indexed listingId
     );
 
     event TokenSold1155(
         address seller,
         address buyer,
-        uint128 tokenId,
-        uint128 amount,
-        uint128 pricePerToken
+        uint256 tokenId,
+        uint256 amount,
+        uint256 pricePerToken
     );
 
     function mintNFT(
+        address creator,
         string memory uri,
         uint256 ownerContribution,
-        uint128 tokenId,
-        uint128 price,
-        uint128 amount
+        uint256 tokenId,
+        uint256 price,
+        uint256 amount
     ) public  {
-        BAFC_NFT nft = new BAFC_NFT(ownerContribution, msg.sender);
+        BAFC_NFT nft = new BAFC_NFT(ownerContribution,address(this),creator );
         nft.setURI(uri);
         nft.mint(msg.sender, tokenId, amount, "");
-
         NFTs[address(nft)] = Listing1155(
             address(nft),
             msg.sender,
@@ -93,34 +93,32 @@ function addNFT(
         listingNFT[_listingIds1155.current()] = address(nft);
         _listingIds1155.increment();
     }
-    function purchaseToken1155(
+    function purchaseNFT(
         address nftAdd,
-        uint128 amount,
-        uint128 tokenId
+        uint256 tokenId,
+        uint256 amount
     ) public payable nonReentrant {
         Listing1155 memory nft = NFTs[nftAdd];
         require(msg.sender != nft.seller, "Can't buy your own tokens!");
-        require(msg.value >= nft.price * amount, "Insufficient funds!");
+          require(msg.value >= nft.price * amount, "Insufficient funds!");
+        console.log(msg.value);
+        console.log(nft.price);
+        console.log(amount);
+        console.log(nft.price * amount);
         require(
-            IERC1155(nft.nft).balanceOf(nft.seller, tokenId) >= amount,
+            IERC1155(nft.nftAddress).balanceOf(nft.seller, tokenId) >= amount,
             "Seller doesn't have enough tokens!"
         );
-        (bool success, ) = payable(nft.nft).call{value: ((nft.price) * amount)}(
+        (bool success, ) = payable(nft.nftAddress).call{value: ((nft.price) * amount)}(
             ""
         );
-        require(success, "Unable to transfer funds to seller");
-        BAFC_NFT(payable(nft.nft)).safeTransferFrom(
-            nft.seller,
-            msg.sender,
-            tokenId,
-            amount,
-            ""
-        );
+         require(success, "Unable to transfer funds to seller");
+        
         emit TokenSold1155(nft.seller, msg.sender, tokenId, amount, nft.price);
     }
 
     function withDraw(address nftAdd) public {
-        BAFC_NFT(payable(NFTs[nftAdd].nft)).withdraw();
+        BAFC_NFT(payable(NFTs[nftAdd].nftAddress)).withdraw();
     }
 
     function getNFTAddress(uint256 id) public view returns (address) {
@@ -133,7 +131,7 @@ function addNFT(
         uint256 tokenId
     ) public view returns (uint256) {
         return
-            BAFC_NFT(payable(NFTs[nftAddr].nft)).balanceOf(userAddr, tokenId);
+            BAFC_NFT(payable(NFTs[nftAddr].nftAddress)).balanceOf(userAddr, tokenId);
     }
 
     receive() external payable {}
