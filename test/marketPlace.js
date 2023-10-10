@@ -21,11 +21,11 @@ describe("NFTMarketplace", async function () {
             let contract, NFTAddress;
             let uri = "my";
             beforeEach(async () => {
-               
 
-                await market.mintNFT(deployer.address,uri, 10, 0, 100, 1000);
+
+                await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000);
                 NFTAddress = await market.listingNFT(0);
-                contract = new ethers.Contract(NFTAddress, abi,deployer);
+                contract = new ethers.Contract(NFTAddress, abi, deployer);
             });
             describe("mint NFT", function () {
                 it("next _listingIds1155 increament", async function () {
@@ -34,11 +34,15 @@ describe("NFTMarketplace", async function () {
                 it("checking uri", async function () {
                     expect(await contract.uri(0)).to.be.equal(uri);
                 });
+                it("getNFTAddress", async function () {
+                    expect(await market.getNFTAddress(0)).to.be.equal(contract.address);
+                });
+
                 it("checking balanceOf owner", async function () {
                     expect(await contract.balanceOf(deployer.address, 0)).to.be.equal(1000);
                 });
                 it("checking minting event emmited", async function () {
-                    expect(await market.mintNFT(uri, 10, 0, 100, 1000))
+                    expect(await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000))
                         .to.emit(market, "TokenListed1155").withArgs(deployer.address, 0, 100, 1000, 2);
                 });
                 it("add new nft", async function () {
@@ -52,37 +56,61 @@ describe("NFTMarketplace", async function () {
                     await expect(market.connect(acc01).addNFT(NFTAddress, 1, 100, 1000))
                         .to.be.revertedWith("only owner can mint new nft");
                 });
+                it("add contribution", async function () {
+                    //    let addContribution = await market.addUsersContributions(contract.address,acc02.address,20);
+                    expect(await market.addUsersContributions(contract.address, acc02.address, 20)).to.be.emit(market, "newContributionAdded").withArgs(contract.address, acc02.address, 20);
+                    expect(await contract.getUsersContributions(acc02.address)).to.be.equal(20);
+
+                });
             })
             describe("purchase NFT", function () {
                 it("purchase with acc01", async function () {
-                    console.log("deployer" + deployer.address);
-                    console.log("market" + market.address);
-                    console.log("acc01" + acc01.address);
                     const tokenId = 0;
                     const amount = 2;
-                    await market.connect(acc01).purchaseNFT(NFTAddress, tokenId,amount,{value:2000});
+                    const price = 100;
+                    let valuePerEther = amount * price;
+                    let valuePerWei = ethers.utils.parseUnits(valuePerEther.toString(), "ether");
+
+                    expect(await market.connect(acc01).purchaseNFT(NFTAddress, tokenId, amount, { value: valuePerWei }))
+                        .to.be.emit(market, "TokenSold1155").withArgs(acc01.address, tokenId, amount, price);
+                    expect(await ethers.provider.getBalance(market.address))
+                        .to.be.equal(ethers.utils.parseUnits((0.02 * valuePerEther).toString(), "ether"));
                     await contract.safeTransferFrom(
-                            deployer.address,
-                            acc01.address,
-                            0,
-                            2,0x00
-                        );
+                        deployer.address,
+                        acc01.address,
+                        0,
+                        2, 0x00
+                    );
+
                     await expect(await contract.balanceOf(acc01.address, 0))
                         .to.be.equal(2);
-                    await expect(await ethers.provider.getBalance(contract.address))
-                    .to.be.equal(2000);
+                    expect(await ethers.provider.getBalance(contract.address))
+                        .to.be.equal(ethers.utils.parseUnits((0.98 * valuePerEther).toString(), "ether"));
+
+
                 });
-                it.only("purchase with acc01 should be reverted ", async function () {
-                    console.log("deployer" + deployer.address);
-                    console.log("market" + market.address);
-                    console.log("acc01" + acc01.address);
+                it("purchase with acc01 should be reverted ", async function () {
                     const tokenId = 0;
                     const amount = 2;
-                    await market.connect(acc01).purchaseNFT(NFTAddress, tokenId,amount,{value:2000});
-                    
-                    await expect( contract.connect(acc01).safeTransferFrom(deployer.address,acc01.address,0,2,0x00))
-                    .to.be.reverted;
-                        // .to.be.revertedWithCustomError(contract,"ERC1155MissingApprovalForAll");
+                    const price = 100;
+                    let valuePerEther = amount * price;
+                    let valuePerWei = ethers.utils.parseUnits(valuePerEther.toString(), "ether");
+
+                    expect(await market.connect(acc01).purchaseNFT(NFTAddress, tokenId, amount, { value: valuePerWei }))
+                        .to.be.emit(market, "TokenSold1155").withArgs(acc01.address, tokenId, amount, price);
+                    await expect(contract.connect(acc01).safeTransferFrom(deployer.address, acc01.address, 0, 2, 0x00))
+                        .to.be.reverted;
+                    // .to.be.revertedWithCustomError(contract,"ERC1155MissingApprovalForAll");
+                });
+            })
+            describe("withDraw", function () {
+                it("withDraw with acc02", async function () {
+                    let beforeWithdraw = await ethers.provider.getBalance(acc02.address);
+                    await market.addUsersContributions(contract.address, acc02.address, 20);
+                    await market.connect(acc01).purchaseNFT(NFTAddress, 0, 2, { value: ethers.utils.parseUnits("200", "ether") })
+                    expect(await contract.getUsersContributions(acc02.address)).to.be.equal(20);
+                    await contract.connect(acc02).withdraw();
+                    await expect((await ethers.provider.getBalance(acc02.address)).gt(beforeWithdraw)).to.be.true;
                 });
             })
         })

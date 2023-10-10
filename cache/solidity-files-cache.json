@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "I:\\BlockchainProject\\Copyright\\contracts\\BAFC_NFT.sol": {
-      "lastModificationDate": 1696873087795,
-      "contentHash": "175d0e902bea754c94ab2af515915f71",
+      "lastModificationDate": 1696947539005,
+      "contentHash": "90362718aa30fd8de3738a3db8887cd6",
       "sourceName": "contracts/BAFC_NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -26,6 +26,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -42,8 +45,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\NFT.sol": {
-      "lastModificationDate": 1696879075534,
-      "contentHash": "57b465b8dec1ccb53a0bdc342fbde1ed",
+      "lastModificationDate": 1696925347659,
+      "contentHash": "a7e5f6037f5676204ac0c87c8241ce69",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -66,6 +69,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -107,6 +113,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -145,6 +154,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -197,8 +209,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\token\\ERC1155\\ERC1155.sol": {
-      "lastModificationDate": 1696884907884,
-      "contentHash": "fab4eb25bf9ffa562d44937351782837",
+      "lastModificationDate": 1696686904011,
+      "contentHash": "917e6b867a0e67cd81ca4eb34336ca35",
       "sourceName": "@openzeppelin/contracts/token/ERC1155/ERC1155.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -221,6 +233,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -265,6 +280,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -303,6 +321,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -339,6 +360,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -413,6 +437,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -449,6 +476,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -487,6 +517,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -526,6 +559,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -564,6 +600,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -602,6 +641,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -640,6 +682,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -676,6 +721,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -688,8 +736,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\Market.sol": {
-      "lastModificationDate": 1696882937100,
-      "contentHash": "de4223ddbd92af4805d4104344b7e6b4",
+      "lastModificationDate": 1696936789446,
+      "contentHash": "c188ebcf55ba16d3c9753d07eeee97b9",
       "sourceName": "contracts/Market.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -712,6 +760,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -754,6 +805,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -766,8 +820,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1696688836889,
-      "contentHash": "1ce46e94d6d577190d367cfc7d24806b",
+      "lastModificationDate": 1696920662417,
+      "contentHash": "43888a2c7656f945c9a051c224d8c496",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -790,6 +844,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },

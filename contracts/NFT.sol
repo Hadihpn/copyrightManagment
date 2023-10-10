@@ -29,12 +29,12 @@ contract MyToken is ERC1155, ERC1155Supply , Ownable{
         _mint(account, id, amount, data);
     }
 
-    function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
-        public
-        onlyOwner
-    {
-        _mintBatch(to, ids, amounts, data);
-    }
+    // function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)
+    //     public
+    //     onlyOwner
+    // {
+    //     _mintBatch(to, ids, amounts, data);
+    // }
 
     // The following functions are overrides required by Solidity.
 
@@ -45,12 +45,12 @@ contract MyToken is ERC1155, ERC1155Supply , Ownable{
         super._update(from, to, ids, values);
     }
 
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC1155)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
-    }
+    // function supportsInterface(bytes4 interfaceId)
+    //     public
+    //     view
+    //     override(ERC1155)
+    //     returns (bool)
+    // {
+    //     return super.supportsInterface(interfaceId);
+    // }
 }
