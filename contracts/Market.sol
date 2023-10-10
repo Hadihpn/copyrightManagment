@@ -7,13 +7,26 @@ import "./BAFC_NFT.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "hardhat/console.sol";
 
+///@title basis of simple copyright management marketPlace
+///@author hadihpn
+/**
+ * ///@notice this contract can be used as simple copyright manamgent system marketPlace
+ * you can create contribution for any user after minting nft and everyone can withdraw their contribution
+ */
+///@custom:experimental this is an experimental contracts
 contract NFTMarketplace is Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
-    //mapping(nft address,NFT)
+    ///@notice its list of NFT's information
+    ///@dev the address of BAFC_NFT contract => instance of Listing1155
     mapping(address => Listing1155) public NFTs;
+    ///@notice its list of NFT's address
+    ///@dev the id of token => address of nft
     mapping(uint256 => address) public listingNFT;
     Counters.Counter public _listingIds1155;
 
+    /**
+     * @dev Initializes the contract setting the deployer as the initial owner.
+     */
     constructor() Ownable(msg.sender) {}
 
     struct Listing1155 {
@@ -42,6 +55,20 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         uint256 pricePerToken
     );
 
+    /** 
+    /// @notice create an instance of BAFC_NFT contract 
+    ///set uri 
+    /// mint an nft 
+    /// emit TokenListed1155 event
+    /// set address of new BAFC_NFT contract in mapping 
+    /// increase _listingIds1155 
+*/
+    /// @param creator  address of deployer
+    /// @param uri ipfs address of files
+    /// @param ownerContribution contribution of depoyer address
+    /// @param tokenId the id that you set for your nft
+    /// @param price the price that you set for nft
+    /// @param amount the amount that you mint  nft
     function mintNFT(
         address creator,
         string memory uri,
@@ -71,6 +98,12 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         _listingIds1155.increment();
     }
 
+    /// @notice add new nft To deployed BAFC_NFT
+
+    /// @param nftAddress  address of nft that had been deployed before
+    /// @param tokenId the id that you set for your nft
+    /// @param price the price that you set for nft
+    /// @param amount the amount that you mint  nft
     function addNFT(
         address nftAddress,
         uint128 tokenId,
@@ -101,12 +134,25 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         _listingIds1155.increment();
     }
 
+    /** 
+    /// @notice purchase nft  & send fee to market and contract
+    /// @notice 2 percent of value that has been send for purchasing will transfer to market as purchaseFee
+     Requirements:
+     *
+     * cannot buy your nft
+     * enough token must be available
+     * the value should be enough for buying per amount and price
+     * /// emit TokenSold1155 event after solding nft
+*/
+    /// @param nftAddress  address of nft you want to buy
+    /// @param tokenId the id of nft you want to buy
+    /// @param amount the amount of nft you want to buy
     function purchaseNFT(
-        address nftAdd,
+        address nftAddress,
         uint256 tokenId,
         uint256 amount
     ) public payable nonReentrant {
-        Listing1155 memory nft = NFTs[nftAdd];
+        Listing1155 memory nft = NFTs[nftAddress];
         require(msg.sender != nft.seller, "Can't buy your own tokens!");
         require(
             msg.value >= nft.price * (10 ** 18) * amount,
@@ -124,6 +170,13 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         emit TokenSold1155(msg.sender, tokenId, amount, nft.price);
     }
 
+    /** 
+    /// @notice add newUserContribution to BAFC_NFT contract
+     * /// emit newContributionAdded event
+*/
+    /// @param nftAddress  address of nft you want to buy
+    /// @param userAddress the id of nft you want to buy
+    /// @param contribution the amount of nft you want to buy
     function addUsersContributions(
         address nftAddress,
         address userAddress,
@@ -136,6 +189,9 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         emit newContributionAdded(nftAddress, userAddress, contribution);
     }
 
+    /// @notice get address of nftContract per id
+    /// @param id  id of mapping
+    /// @return the address of nft Contracts
     function getNFTAddress(uint256 id) public view returns (address) {
         return listingNFT[id];
     }

@@ -2,12 +2,12 @@ const { expect } = require("chai");
 const { network, deployments, ethers } = require("hardhat");
 const { abi } = require("../artifacts/contracts/BAFC_NFT.sol/BAFC_NFT.json")
 describe("NFTMarketplace", async function () {
-    let deployer, acc01, acc02;
+    let deployer, acc01, acc02,acc03;
     const sendValue = ethers.utils.parseEther("15");
     let market, accounts;
     beforeEach(async () => {
         // deployer = (await getNamedAccounts()).deployer       
-        [deployer, acc01, acc02] = await ethers.getSigners()
+        [deployer, acc01, acc02,acc03] = await ethers.getSigners()
         const Market = await ethers.getContractFactory("NFTMarketplace");
         market = await Market.deploy();
     })
@@ -81,6 +81,7 @@ describe("NFTMarketplace", async function () {
                         0,
                         2, 0x00
                     );
+                   
 
                     await expect(await contract.balanceOf(acc01.address, 0))
                         .to.be.equal(2);
