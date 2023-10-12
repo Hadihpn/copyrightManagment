@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "I:\\BlockchainProject\\Copyright\\contracts\\BAFC_NFT.sol": {
-      "lastModificationDate": 1696947539005,
-      "contentHash": "90362718aa30fd8de3738a3db8887cd6",
+      "lastModificationDate": 1696961114539,
+      "contentHash": "8e4c864301c94afda4e18e557fdd430c",
       "sourceName": "contracts/BAFC_NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -26,9 +26,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -45,8 +42,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\NFT.sol": {
-      "lastModificationDate": 1696925347659,
-      "contentHash": "a7e5f6037f5676204ac0c87c8241ce69",
+      "lastModificationDate": 1696961260803,
+      "contentHash": "4ec95026e84f367aa8280c58da971a04",
       "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -69,9 +66,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -113,9 +107,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -154,9 +145,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -233,9 +221,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -280,9 +265,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -321,9 +303,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -360,9 +339,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -437,9 +413,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -476,9 +449,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -517,9 +487,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -559,9 +526,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -600,9 +564,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -641,9 +602,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -682,9 +640,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -721,9 +676,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -736,8 +688,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\Market.sol": {
-      "lastModificationDate": 1696956077833,
-      "contentHash": "dabdde9bb124b2acecc56b0e493e1f2d",
+      "lastModificationDate": 1696960478813,
+      "contentHash": "ebb525eb08ec9a28d6ebb4e0544bc7b0",
       "sourceName": "contracts/Market.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -760,9 +712,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -805,9 +754,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
@@ -820,8 +766,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1696920662417,
-      "contentHash": "43888a2c7656f945c9a051c224d8c496",
+      "lastModificationDate": 1697131417498,
+      "contentHash": "1ce46e94d6d577190d367cfc7d24806b",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.20",
@@ -844,9 +790,6 @@
                 "ast"
               ]
             }
-          },
-          "metadata": {
-            "useLiteralContent": false
           }
         }
       },
