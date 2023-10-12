@@ -3,6 +3,7 @@ require("solidity-coverage");
 require("solidity-docgen");
 require("dotenv").config()
 require("hardhat-deploy")
+require("@nomiclabs/hardhat-etherscan")
 
 /** @type import('hardhat/config').HardhatUserConfig */
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""

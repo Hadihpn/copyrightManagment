@@ -892,8 +892,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\node_modules\\@openzeppelin\\contracts\\utils\\Counters.sol": {
-      "lastModificationDate": 1697132151160,
-      "contentHash": "1ce46e94d6d577190d367cfc7d24806b",
+      "lastModificationDate": 1697132984663,
+      "contentHash": "9550d7f78661d948c0af2695cef7b5d8",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
         "version": "0.8.20",

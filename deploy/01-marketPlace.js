@@ -17,12 +17,12 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
     log(`Market deployed at ${market.address}`)
 
-    // if (
-    //     !developmentChains.includes(network.name) &&
-    //     process.env.ETHERSCAN_API_KEY
-    // ) {
-    //     await verify(market.address)
-    // }
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
+        await verify(market.address)
+    }
 }
 
 module.exports.tags = ["all", "market"]
