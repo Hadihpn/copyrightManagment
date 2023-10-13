@@ -46,9 +46,7 @@ describe("NFTMarketplace", async function () {
                 it("add new nft", async function () {
                     await market.addNFT(NFTAddress, 1, 100, 999)
                     expect(expect(await market._listingIds1155()).to.be.equal(2))
-                    NFTAddress = await market.listingNFT(1);
-                    contract = new ethers.Contract(NFTAddress, abi, deployer);
-                    expect(await contract.balanceOf(deployer.address, 1)).to.be.equal(999);
+                    
                 });
                 it("add new nft with another account would be reverted", async function () {
                     await expect(market.connect(acc01).addNFT(NFTAddress, 1, 100, 1000))

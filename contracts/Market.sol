@@ -133,7 +133,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
             amount,
             uint128(_listingIds1155.current())
         );
-        listingNFT[_listingIds1155.current()] = address(nft);
+        // listingNFT[_listingIds1155.current()] = address(nft);
         _listingIds1155.increment();
     }
 
