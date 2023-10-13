@@ -801,8 +801,8 @@
       ]
     },
     "I:\\BlockchainProject\\Copyright\\contracts\\Market.sol": {
-      "lastModificationDate": 1697199206538,
-      "contentHash": "517e87ffb12accbdb9bcae2ed8598856",
+      "lastModificationDate": 1697201571796,
+      "contentHash": "beb62441ac01ee00a4898aef7a24ee02",
       "sourceName": "contracts/Market.sol",
       "solcConfig": {
         "version": "0.8.20",

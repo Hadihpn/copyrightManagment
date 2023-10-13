@@ -41,7 +41,7 @@ describe("NFTMarketplace", async function () {
                 });
                 it("checking minting event emmited", async function () {
                     expect(await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000))
-                        .to.emit(market, "TokenListed1155").withArgs(deployer.address, 0, 100, 1000, 2);
+                        .to.emit(market, "TokenListed1155").withArgs(contract.address,deployer.address, 0, 100, 1000, 2);
                 });
                 it("add new nft", async function () {
                     await market.addNFT(NFTAddress, 1, 100, 999)

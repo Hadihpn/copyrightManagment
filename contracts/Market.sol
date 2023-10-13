@@ -37,7 +37,8 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         uint256 amount;
     }
     event TokenListed1155(
-        address indexed seller,
+        address indexed nftAddress,
+        address  seller,
         uint256 indexed tokenId,
         uint256 amount,
         uint256 pricePerToken,
@@ -88,6 +89,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
             amount
         );
         emit TokenListed1155(
+            address(nft),
             msg.sender,
             tokenId,
             price,
@@ -124,6 +126,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
             amount
         );
         emit TokenListed1155(
+            address(nft),
             msg.sender,
             tokenId,
             price,
