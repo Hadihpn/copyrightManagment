@@ -107,6 +107,18 @@ describe("NFTMarketplace", async function () {
 
             })
             describe("withDraw", function () {
+                
+                it("withdraw market balance",async function(){
+                    let beforeWithdraw = await ethers.provider.getBalance(deployer.address);  
+                    await market.connect(acc01).purchaseNFT(NFTAddress, 0, 2, { value: ethers.utils.parseUnits("200", "ether") })
+                    await market.withdraw();
+                    let afterWithdraw = await ethers.provider.getBalance(deployer.address);  
+                    await expect(Number(afterWithdraw)).to.be.greaterThan(Number(beforeWithdraw));
+                })
+                it("withdraw market balance reverted if balance equal zero",async function(){
+                    await expect(  market.withdraw()).to.be.revertedWith("you haven't any balance");
+                })
+
                 it("withDraw with acc02", async function () {
                     let beforeWithdraw = await ethers.provider.getBalance(acc02.address);
                     await market.addUsersContributions(contract.address, acc02.address, 20);
@@ -116,6 +128,7 @@ describe("NFTMarketplace", async function () {
                     await expect((await ethers.provider.getBalance(acc02.address)).gt(beforeWithdraw)).to.be.true;
                 });
             })
+            
         })
     })
 })

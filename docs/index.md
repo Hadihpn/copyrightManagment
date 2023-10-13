@@ -267,6 +267,14 @@ by this function owner of token can send their tokens to anotherone
 
 _this function had been written because transfering tokens must be done by marketplace_
 
+### withdraw
+
+```solidity
+function withdraw() public
+```
+
+by this function owner of market withdraw all balance
+
 ### receive
 
 ```solidity

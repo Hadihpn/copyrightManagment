@@ -96,7 +96,6 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         );
         listingNFT[_listingIds1155.current()] = address(nft);
         _listingIds1155.increment();
-        
     }
 
     /// @notice add new nft To deployed BAFC_NFT
@@ -153,7 +152,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         uint256 tokenId,
         uint256 amount
     ) public payable nonReentrant {
-         require(nftAddress != address(0),"please enter correct address");
+        require(nftAddress != address(0), "please enter correct address");
         Listing1155 memory nft = NFTs[nftAddress];
         require(msg.sender != nft.seller, "Can't buy your own tokens!");
         require(
@@ -168,17 +167,24 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
             value: (98 * (msg.value / 100))
         }("");
         require(success, "Unable to transfer funds to reciever");
-        transfer(nftAddress,nft.seller,msg.sender,tokenId,amount);
+        transfer(nftAddress, nft.seller, msg.sender, tokenId, amount);
         // BAFC_NFT nftContract = BAFC_NFT(payable(nftAddress));
         // nftContract.safeTransferFrom(nft.seller, msg.sender, tokenId, amount, "");
         emit TokenSold1155(msg.sender, tokenId, amount, nft.price);
     }
 
-function transfer(address nftAddress,address seller, address to,uint256 tokenId , uint256 amount) internal {
-        require(nftAddress != address(0),"please enter correct address");
+    function transfer(
+        address nftAddress,
+        address seller,
+        address to,
+        uint256 tokenId,
+        uint256 amount
+    ) internal {
+        require(nftAddress != address(0), "please enter correct address");
         BAFC_NFT nftContract = BAFC_NFT(payable(nftAddress));
         nftContract.safeTransferFrom(seller, to, tokenId, amount, "");
-}
+    }
+
     /** 
     /// @notice add newUserContribution to BAFC_NFT contract
      * /// emit newContributionAdded event
@@ -205,7 +211,7 @@ function transfer(address nftAddress,address seller, address to,uint256 tokenId 
         return listingNFT[id];
     }
 
-      /** 
+    /** 
     /// @notice by this function owner of token can send their tokens to anotherone
     ///@dev this function had been written because transfering tokens must be done by marketplace
      
@@ -221,7 +227,22 @@ function transfer(address nftAddress,address seller, address to,uint256 tokenId 
             "you dont't have enough tokens!"
         );
         // require(to != "0x0","you cannot send to zero address");
-        BAFC_NFT(payable(nftAddress)).safeTransferFrom(msg.sender, to, tokenId, amount, "");
+        BAFC_NFT(payable(nftAddress)).safeTransferFrom(
+            msg.sender,
+            to,
+            tokenId,
+            amount,
+            ""
+        );
+    }
+ /** 
+    /// @notice by this function owner of market withdraw all balance
+     
+*/
+    function withdraw() public onlyOwner nonReentrant {
+        require(address(this).balance > 0, "you haven't any balance");
+        (bool success, ) = payable(msg.sender).call{value: (address(this).balance) }("");
+        require(success);
     }
 
     receive() external payable {}
