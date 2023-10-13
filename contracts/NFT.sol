@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "hardhat/console.sol";
 
-contract MyToken is ERC1155, ERC1155Supply, Ownable {
+contract NFT is ERC1155, ERC1155Supply, Ownable {
     constructor(
         address defaultAdmin,
         address marketPlace

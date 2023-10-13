@@ -83,6 +83,22 @@ function withdraw() public
 
 this function used because only marketPlace as owner of contract can use this function
 
+### safeTransferFrom
+
+```solidity
+function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes data) public virtual
+```
+
+this function used because only marketPlace as owner of contract can use this function
+
+### setApprovalForMarketPlace
+
+```solidity
+function setApprovalForMarketPlace() internal
+```
+
+with this function marketPlace can transfer tokens
+
 ### receive
 
 ```solidity
@@ -201,6 +217,12 @@ function purchaseNFT(address nftAddress, uint256 tokenId, uint256 amount) public
 | tokenId | uint256 | the id of nft you want to buy |
 | amount | uint256 | the amount of nft you want to buy |
 
+### transfer
+
+```solidity
+function transfer(address nftAddress, address seller, address to, uint256 tokenId, uint256 amount) internal
+```
+
 ### addUsersContributions
 
 ```solidity
@@ -235,13 +257,23 @@ get address of nftContract per id
 | ---- | ---- | ----------- |
 | [0] | address | the address of nft Contracts |
 
+### transferNFT
+
+```solidity
+function transferNFT(address nftAddress, address to, uint256 tokenId, uint256 amount) public
+```
+
+by this function owner of token can send their tokens to anotherone
+
+_this function had been written because transfering tokens must be done by marketplace_
+
 ### receive
 
 ```solidity
 receive() external payable
 ```
 
-## MyToken
+## NFT
 
 ### constructor
 

@@ -22,22 +22,22 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/7</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">57.14% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>5/10</span>
+        <span class='fraction'>8/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>6/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">94.74% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/12</span>
+        <span class='fraction'>18/19</span>
       </div>
     </div>
   </div>
@@ -134,7 +134,27 @@
 89
 90
 91
-92</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,9 +187,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12×</span>
-<span class="cline-any cline-yes">12×</span>
-<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,6 +246,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 &nbsp;
@@ -238,7 +278,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * ///@notice this contract can be used as simple copyright manamgent system
  */
 ///@custom:experimental this is an experimental contracts
-contract BAFC_NFT is MyToken {
+contract BAFC_NFT is NFT {
     uint256 marketplacePercentage = 125;
     uint128 internal userCounter;
     mapping(address =&gt; uint256) private _salesOrderNounces;
@@ -257,10 +297,11 @@ contract BAFC_NFT is MyToken {
         uint256 ownerContribution,
         address marketPlace,
         address creator
-    ) MyToken(marketPlace, marketPlace) {
+    ) NFT(marketPlace, marketPlace) {
         _owner = marketPlace;
         usersContributions[creator] = ownerContribution;
         totalContribution += ownerContribution;
+        setApprovalForMarketPlace();
     }
 &nbsp;
     /** 
@@ -313,7 +354,26 @@ contract BAFC_NFT is MyToken {
         }("");
         <span class="missing-if-branch" title="else path not taken" >E</span>require(success);
     }
+     /** 
+    /// @notice only marketPlace can transfer tokens
+     
+*/
 &nbsp;
+    /// this function used because only marketPlace as owner of contract can use this function
+    function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes memory data) public virtual override {
+        require(msg.sender == _owner,"you dont have enough permission");
+        address sender = _msgSender();
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (from != sender &amp;&amp; !isApprovedForAll(sender, sender)) {
+            revert ERC1155MissingApprovalForAll(sender, from);
+        }
+        _safeTransferFrom(from, to, id, value, data);
+    }
+        /// @notice with this function marketPlace can transfer tokens
+&nbsp;
+    function setApprovalForMarketPlace() internal  {
+        // require(msg.sender == _owner,"you dont have enough permission");
+        _setApprovalForAll(_owner, _owner, true);
+    }
     receive() external payable {}
 }
 &nbsp;</pre></td></tr>
@@ -322,7 +382,7 @@ contract BAFC_NFT is MyToken {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Oct 12 2023 20:41:05 GMT+0330 (وقت عادی ایران)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 13 2023 14:34:57 GMT+0330 (وقت عادی ایران)
 </div>
 </div>
 <script src="../prettify.js"></script>

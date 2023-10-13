@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
  * ///@notice this contract can be used as simple copyright manamgent system
  */
 ///@custom:experimental this is an experimental contracts
-contract BAFC_NFT is MyToken {
+contract BAFC_NFT is NFT {
     uint256 marketplacePercentage = 125;
     uint128 internal userCounter;
     mapping(address => uint256) private _salesOrderNounces;
@@ -30,10 +30,11 @@ contract BAFC_NFT is MyToken {
         uint256 ownerContribution,
         address marketPlace,
         address creator
-    ) MyToken(marketPlace, marketPlace) {
+    ) NFT(marketPlace, marketPlace) {
         _owner = marketPlace;
         usersContributions[creator] = ownerContribution;
         totalContribution += ownerContribution;
+        setApprovalForMarketPlace();
     }
 
     /** 
@@ -86,6 +87,25 @@ contract BAFC_NFT is MyToken {
         }("");
         require(success);
     }
+     /** 
+    /// @notice only marketPlace can transfer tokens
+     
+*/
 
+    /// this function used because only marketPlace as owner of contract can use this function
+    function safeTransferFrom(address from, address to, uint256 id, uint256 value, bytes memory data) public virtual override {
+        require(msg.sender == _owner,"you dont have enough permission");
+        address sender = _msgSender();
+        if (from != sender && !isApprovedForAll(sender, sender)) {
+            revert ERC1155MissingApprovalForAll(sender, from);
+        }
+        _safeTransferFrom(from, to, id, value, data);
+    }
+        /// @notice with this function marketPlace can transfer tokens
+
+    function setApprovalForMarketPlace() internal  {
+        // require(msg.sender == _owner,"you dont have enough permission");
+        _setApprovalForAll(_owner, _owner, true);
+    }
     receive() external payable {}
 }

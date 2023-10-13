@@ -2,12 +2,12 @@ const { expect } = require("chai");
 const { network, deployments, ethers } = require("hardhat");
 const { abi } = require("../artifacts/contracts/BAFC_NFT.sol/BAFC_NFT.json")
 describe("NFTMarketplace", async function () {
-    let deployer, acc01, acc02,acc03;
+    let deployer, acc01, acc02, acc03;
     const sendValue = ethers.utils.parseEther("15");
     let market, accounts;
     beforeEach(async () => {
         // deployer = (await getNamedAccounts()).deployer       
-        [deployer, acc01, acc02,acc03] = await ethers.getSigners()
+        [deployer, acc01, acc02, acc03] = await ethers.getSigners()
         const Market = await ethers.getContractFactory("NFTMarketplace");
         market = await Market.deploy();
     })
@@ -21,8 +21,6 @@ describe("NFTMarketplace", async function () {
             let contract, NFTAddress;
             let uri = "my";
             beforeEach(async () => {
-
-
                 await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000);
                 NFTAddress = await market.listingNFT(0);
                 contract = new ethers.Contract(NFTAddress, abi, deployer);
@@ -63,7 +61,7 @@ describe("NFTMarketplace", async function () {
 
                 });
             })
-            describe("purchase NFT", function () {
+            describe("purchase NFT1", function () {
                 it("purchase with acc01", async function () {
                     const tokenId = 0;
                     const amount = 2;
@@ -71,38 +69,42 @@ describe("NFTMarketplace", async function () {
                     let valuePerEther = amount * price;
                     let valuePerWei = ethers.utils.parseUnits(valuePerEther.toString(), "ether");
 
+                    // await market.connect(acc01).purchaseNFT(NFTAddress, tokenId, amount, { value: valuePerWei })
                     expect(await market.connect(acc01).purchaseNFT(NFTAddress, tokenId, amount, { value: valuePerWei }))
                         .to.be.emit(market, "TokenSold1155").withArgs(acc01.address, tokenId, amount, price);
                     expect(await ethers.provider.getBalance(market.address))
                         .to.be.equal(ethers.utils.parseUnits((0.02 * valuePerEther).toString(), "ether"));
-                    await contract.safeTransferFrom(
-                        deployer.address,
-                        acc01.address,
-                        0,
-                        2, 0x00
-                    );
-                   
-
-                    await expect(await contract.balanceOf(acc01.address, 0))
-                        .to.be.equal(2);
                     expect(await ethers.provider.getBalance(contract.address))
                         .to.be.equal(ethers.utils.parseUnits((0.98 * valuePerEther).toString(), "ether"));
+                    await expect(await contract.balanceOf(acc01.address, 0))
+                        .to.be.equal(2);
+
 
 
                 });
-                it("purchase with acc01 should be reverted ", async function () {
+                it("purchase with acc01 cannot transfer it's nft outside of marketplace ", async function () {
                     const tokenId = 0;
                     const amount = 2;
                     const price = 100;
                     let valuePerEther = amount * price;
                     let valuePerWei = ethers.utils.parseUnits(valuePerEther.toString(), "ether");
-
                     expect(await market.connect(acc01).purchaseNFT(NFTAddress, tokenId, amount, { value: valuePerWei }))
                         .to.be.emit(market, "TokenSold1155").withArgs(acc01.address, tokenId, amount, price);
                     await expect(contract.connect(acc01).safeTransferFrom(deployer.address, acc01.address, 0, 2, 0x00))
                         .to.be.reverted;
                     // .to.be.revertedWithCustomError(contract,"ERC1155MissingApprovalForAll");
                 });
+            })
+            describe("purchase NFT", function () {
+                it("transfer when you  havnt enough token", async function () {
+                    const tokenId = 0;
+                    const amount = 2;
+                    expect(await market.transferNFT(NFTAddress,acc02.address, tokenId, amount))
+                      .to.be.revertedWith("you dont't have enough tokens")
+
+
+                });
+
             })
             describe("withDraw", function () {
                 it("withDraw with acc02", async function () {

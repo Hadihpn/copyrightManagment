@@ -30,7 +30,14 @@ module.exports = {
           blockConfirmations: 6,
       },
   },
-  solidity: "0.8.20",
+  solidity: {
+    version:"0.8.20",
+    settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      }},
   docgen:{},
   etherscan: {
       apiKey: ETHERSCAN_API_KEY,
