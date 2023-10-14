@@ -32,7 +32,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -289,7 +289,10 @@
 244
 245
 246
-247</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+247
+248
+249
+250</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,8 +390,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15×</span>
 <span class="cline-any cline-yes">15×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,11 +411,6 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -422,6 +419,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,7 +503,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -510,15 +513,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -531,7 +538,6 @@
 <span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -554,11 +560,14 @@ import "hardhat/console.sol";
 contract NFTMarketplace is Ownable, ReentrancyGuard {
     using Counters for Counters.Counter;
     ///@notice its list of NFT's information
-    ///@dev the address of BAFC_NFT contract =&gt; instance of Listing1155
-    mapping(address =&gt; Listing1155) public NFTs;
+    ///@dev the address of BAFC_NFT contract =&gt;(tokenId =&gt; instance of Listing1155)
+    mapping(address =&gt; mapping(uint256 =&gt;Listing1155)) public NFTs;
     ///@notice its list of NFT's address
     ///@dev the id of token =&gt; address of nft
-    mapping(uint256 =&gt; address) public listingNFT;
+    mapping(address =&gt; uint256) public listingNFT;
+    ///@notice its list of NFT's address
+    ///@dev the id of token =&gt; address of nft
+    mapping(uint256 =&gt; address) public listingNFTAddress;
     Counters.Counter public _listingIds1155;
 &nbsp;
     /**
@@ -567,6 +576,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
     constructor() Ownable(msg.sender) {}
 &nbsp;
     struct Listing1155 {
+&nbsp;
         address nftAddress;
         address seller;
         uint256 tokenId;
@@ -574,11 +584,11 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         uint256 amount;
     }
     event TokenListed1155(
+        address indexed nftAddress,
         address indexed seller,
         uint256 indexed tokenId,
         uint256 amount,
-        uint256 pricePerToken,
-        uint indexed listingId
+        uint256 pricePerToken
     );
     event newContributionAdded(
         address indexed nftAddress,
@@ -600,74 +610,71 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
     /// set address of new BAFC_NFT contract in mapping 
     /// increase _listingIds1155 
 */
-    /// @param creator  address of deployer
     /// @param uri ipfs address of files
     /// @param ownerContribution contribution of depoyer address
-    /// @param tokenId the id that you set for your nft
     /// @param price the price that you set for nft
     /// @param amount the amount that you mint  nft
     function mintNFT(
-        address creator,
         string memory uri,
         uint256 ownerContribution,
-        uint256 tokenId,
         uint256 price,
         uint256 amount
-    ) public {
-        BAFC_NFT nft = new BAFC_NFT(ownerContribution, address(this), creator);
+    ) public{
+        BAFC_NFT nft = new BAFC_NFT(ownerContribution, address(this), msg.sender);
         nft.setURI(uri);
-        nft.mint(msg.sender, tokenId, amount, "");
-        NFTs[address(nft)] = Listing1155(
+        nft.mint(msg.sender, 0, amount, "");
+        NFTs[address(nft)][0] = Listing1155(
             address(nft),
             msg.sender,
-            tokenId,
+            0,
             price,
             amount
         );
         emit TokenListed1155(
+            address(nft),
             msg.sender,
-            tokenId,
+            0,
             price,
-            amount,
-            uint128(_listingIds1155.current())
+            amount
         );
-        listingNFT[_listingIds1155.current()] = address(nft);
-        _listingIds1155.increment();
+       listingNFT[address(nft)]=0;
+       listingNFTAddress[_listingIds1155.current()]=address(nft);
+       _listingIds1155.increment();
     }
 &nbsp;
     /// @notice add new nft To deployed BAFC_NFT
 &nbsp;
     /// @param nftAddress  address of nft that had been deployed before
-    /// @param tokenId the id that you set for your nft
     /// @param price the price that you set for nft
     /// @param amount the amount that you mint  nft
     function addNFT(
         address nftAddress,
-        uint128 tokenId,
         uint128 price,
         uint128 amount
     ) public {
         require(
-            NFTs[nftAddress].seller == msg.sender,
+            NFTs[nftAddress][0].seller == msg.sender,
             "only owner can mint new nft"
         );
         BAFC_NFT nft = BAFC_NFT(payable(nftAddress));
-        nft.mint(msg.sender, tokenId, amount, "");
-        NFTs[address(nft)] = Listing1155(
+        uint256 newTokenId= listingNFT[nftAddress]+1;
+        nft.mint(msg.sender, newTokenId, amount, "");
+        
+        NFTs[address(nft)][newTokenId] = Listing1155(
             address(nft),
             msg.sender,
-            tokenId,
+            newTokenId,
             price,
             amount
         );
         emit TokenListed1155(
+            address(nft),
             msg.sender,
-            tokenId,
+            newTokenId,
             price,
-            amount,
-            uint128(_listingIds1155.current())
+            amount
         );
-        listingNFT[_listingIds1155.current()] = address(nft);
+        // listingNFT[_listingIds1155.current()] = address(nft);
         _listingIds1155.increment();
     }
 &nbsp;
@@ -690,7 +697,7 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         uint256 amount
     ) public payable <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
         <span class="missing-if-branch" title="else path not taken" >E</span>require(nftAddress != address(0), "please enter correct address");
-        Listing1155 memory nft = NFTs[nftAddress];
+        Listing1155 memory nft = NFTs[nftAddress][tokenId];
         <span class="missing-if-branch" title="else path not taken" >E</span>require(msg.sender != nft.seller, "Can't buy your own tokens!");
         <span class="missing-if-branch" title="else path not taken" >E</span>require(
             msg.value &gt;= nft.price * (10 ** 18) * amount,
@@ -741,12 +748,12 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
         emit newContributionAdded(nftAddress, userAddress, contribution);
     }
 &nbsp;
-    /// @notice get address of nftContract per id
-    /// @param id  id of mapping
-    /// @return the address of nft Contracts
-    function getNFTAddress(uint256 id) public view returns (address) {
-        return listingNFT[id];
-    }
+    // /// @notice get address of nftContract per id
+    // /// @param id  id of mapping
+    // /// @return the address of nft Contracts
+    // function getNFTAddress(uint256 id) public view returns (address) {
+    //     return listingNFT[id];
+    // }
 &nbsp;
     /** 
     /// @notice by this function owner of token can send their tokens to anotherone
@@ -772,7 +779,10 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
             ""
         );
     }
-&nbsp;
+ /** 
+    /// @notice by this function owner of market withdraw all balance
+     
+*/
     function withdraw() public <span class="missing-if-branch" title="else path not taken" >E</span>onlyOwner <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
         require(address(this).balance &gt; 0, "you haven't any balance");
         (bool success, ) = payable(msg.sender).call{value: (address(this).balance) }("");
@@ -780,14 +790,13 @@ contract NFTMarketplace is Ownable, ReentrancyGuard {
     }
 &nbsp;
     receive() external payable {}
-}
-&nbsp;</pre></td></tr>
+}</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 13 2023 15:42:50 GMT+0330 (وقت عادی ایران)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Oct 14 2023 21:12:05 GMT+0330 (وقت عادی ایران)
 </div>
 </div>
 <script src="../prettify.js"></script>

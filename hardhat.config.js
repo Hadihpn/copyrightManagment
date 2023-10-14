@@ -20,7 +20,7 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
       hardhat: {
-          chainId: 31337,
+          chainId: 1337,
           // gasPrice: 130000000000,
       },
       sepolia: {

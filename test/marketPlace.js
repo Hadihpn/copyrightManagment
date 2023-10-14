@@ -21,8 +21,8 @@ describe("NFTMarketplace", async function () {
             let contract, NFTAddress;
             let uri = "my";
             beforeEach(async () => {
-                await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000);
-                NFTAddress = await market.listingNFT(0);
+                await market.mintNFT(uri, 10, 100, 1000);
+                NFTAddress = await market.listingNFTAddress(0);
                 contract = new ethers.Contract(NFTAddress, abi, deployer);
             });
             describe("mint NFT", function () {
@@ -33,23 +33,25 @@ describe("NFTMarketplace", async function () {
                     expect(await contract.uri(0)).to.be.equal(uri);
                 });
                 it("getNFTAddress", async function () {
-                    expect(await market.getNFTAddress(0)).to.be.equal(contract.address);
+                    expect(await market.listingNFTAddress(0)).to.be.equal(contract.address);
                 });
 
                 it("checking balanceOf owner", async function () {
                     expect(await contract.balanceOf(deployer.address, 0)).to.be.equal(1000);
                 });
                 it("checking minting event emmited", async function () {
-                    expect(await market.mintNFT(deployer.address, uri, 10, 0, 100, 1000))
-                        .to.emit(market, "TokenListed1155").withArgs(contract.address,deployer.address, 0, 100, 1000, 2);
+                    expect(await market.mintNFT(uri, 10, 100, 1000))
+                        .to.emit(market, "TokenListed1155").withArgs(contract.address, deployer.address, 0, 100, 1000);
                 });
                 it("add new nft", async function () {
-                    await market.addNFT(NFTAddress, 1, 100, 999)
-                    expect(expect(await market._listingIds1155()).to.be.equal(2))
-                    
+                    await market.addNFT(NFTAddress, 100, 999)
+                    expect(await market._listingIds1155()).to.be.equal(2)
+                    // NFTAddress = await market.listingNFT(1);
+                    // contract = new ethers.Contract(NFTAddress, abi, deployer);
+                    // expect(await contract.balanceOf(deployer.address, 1)).to.be.equal(999);
                 });
                 it("add new nft with another account would be reverted", async function () {
-                    await expect(market.connect(acc01).addNFT(NFTAddress, 1, 100, 1000))
+                    await expect(market.connect(acc01).addNFT(NFTAddress, 100, 1000))
                         .to.be.revertedWith("only owner can mint new nft");
                 });
                 it("add contribution", async function () {
@@ -97,24 +99,24 @@ describe("NFTMarketplace", async function () {
                 it("transfer when you  havnt enough token", async function () {
                     const tokenId = 0;
                     const amount = 2;
-                    expect(await market.transferNFT(NFTAddress,acc02.address, tokenId, amount))
-                      .to.be.revertedWith("you dont't have enough tokens")
+                    expect(await market.transferNFT(NFTAddress, acc02.address, tokenId, amount))
+                        .to.be.revertedWith("you dont't have enough tokens")
 
 
                 });
 
             })
             describe("withDraw", function () {
-                
-                it("withdraw market balance",async function(){
-                    let beforeWithdraw = await ethers.provider.getBalance(deployer.address);  
+
+                it("withdraw market balance", async function () {
+                    let beforeWithdraw = await ethers.provider.getBalance(deployer.address);
                     await market.connect(acc01).purchaseNFT(NFTAddress, 0, 2, { value: ethers.utils.parseUnits("200", "ether") })
                     await market.withdraw();
-                    let afterWithdraw = await ethers.provider.getBalance(deployer.address);  
+                    let afterWithdraw = await ethers.provider.getBalance(deployer.address);
                     await expect(Number(afterWithdraw)).to.be.greaterThan(Number(beforeWithdraw));
                 })
-                it("withdraw market balance reverted if balance equal zero",async function(){
-                    await expect(  market.withdraw()).to.be.revertedWith("you haven't any balance");
+                it("withdraw market balance reverted if balance equal zero", async function () {
+                    await expect(market.withdraw()).to.be.revertedWith("you haven't any balance");
                 })
 
                 it("withDraw with acc02", async function () {
@@ -126,7 +128,7 @@ describe("NFTMarketplace", async function () {
                     await expect((await ethers.provider.getBalance(acc02.address)).gt(beforeWithdraw)).to.be.true;
                 });
             })
-            
+
         })
     })
 })

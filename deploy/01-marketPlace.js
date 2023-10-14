@@ -1,6 +1,7 @@
 const { network } = require("hardhat")
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
+const { writeData } = require("../utils/writeData")
 require("dotenv").config()
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
@@ -23,6 +24,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ) {
         await verify(market.address)
     }
+    
 }
 
 module.exports.tags = ["all", "market"]
