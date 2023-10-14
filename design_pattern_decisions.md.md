@@ -1,3 +1,3 @@
 the design pattern :
-  factory design patterns
+  factory design patterns and
   cli
