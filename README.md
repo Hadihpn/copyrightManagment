@@ -145,6 +145,18 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
+<!-- Video -->
+## Video
+
+ - [CopyrighManagment](https://mega.nz/file/uwJzQQCQ#GNynF2FQ_RqWSbibMqeiq3ofeXC378WSscmY0tgLwD8) 
+
+<!-- Midterm -->
+## Midterm
+
+ - [Midtrem](https://t.me/hadihpn) - persnb@gmail.com
+ Video: - [CopyrighManagment](https://mega.nz/file/HoZ2UYwA#eqpFdPBCUHI2l4ffqWN8lyuMOliKMaCLyz2M6NfGhic)
+
+  Project Link: [https://github.com/Hadihpn/MyFundMe](https://github.com/Hadihpn/MyFundMe)
 
 
 
